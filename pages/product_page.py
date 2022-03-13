@@ -3,9 +3,6 @@ from .locators import ProductPageLocators
 
 
 class ProductPage(BasePage):
-    def should_be_newYear_url(self):
-        assert 'newYear' in self.browser.current_url, 'newYear is not to url'
-
     def should_be_basket_form(self):
         assert self.is_element_present(*ProductPageLocators.BASKET_FORM), 'BASKET FORM is not presented'
 
