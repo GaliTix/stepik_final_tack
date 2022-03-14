@@ -13,6 +13,10 @@ class BasePage():
         self.url = url
         self.browser.implicitly_wait(timeout)
 
+    def go_to_basket_page(self):
+        view_basket = self.browser.find_element(*BasePageLocators.VIEW_BASKET)
+        view_basket.click()
+
     def go_to_login_page(self):
         login_link = self.browser.find_element(*BasePageLocators.LOGIN_LINK)
         login_link.click()
@@ -44,6 +48,17 @@ class BasePage():
 
     def should_be_login_link(self):
         assert self.is_element_present(*BasePageLocators.LOGIN_LINK), 'Login link is not presented'
+
+    def should_be_basket_url(self):
+        assert '/basket/' in self.browser.current_url, '/basket/ is not to url'
+
+    def should_be_message_basket_is_empty(self):
+        assert self.is_element_present(*BasePageLocators.BASKET_EMPTY), \
+            "Message basket is empty is not presented"
+
+    def should_not_be_product_to_basket(self):
+        assert self.is_not_element_present(*BasePageLocators.PRODUCT_TO_BASKET), \
+            "Product is presented to basket, but should not be"
 
     def solve_quiz_and_get_code(self):
         alert = self.browser.switch_to.alert
