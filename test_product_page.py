@@ -1,6 +1,7 @@
 import pytest
 import random
 import time
+from .pages.basket_page import BasketPage
 from .pages.product_page import ProductPage
 from .pages.login_page import LoginPage
 
@@ -9,6 +10,7 @@ from .pages.login_page import LoginPage
                          ["offer0", "offer1", "offer3", "offer4", "offer5", "offer6",
                           pytest.param("offer7", marks=pytest.mark.xfail(reason="fixing this bug right now")), "offer8",
                           "offer9"])
+@pytest.mark.need_review
 def test_guest_can_add_product_to_basket(browser, substring):
     link = f"http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo={substring}"
     page = ProductPage(browser, link)
@@ -16,28 +18,30 @@ def test_guest_can_add_product_to_basket(browser, substring):
     page.should_be_basket_form()
     page.should_be_add_basket()
     page.click_to_button_add_basket()
-    page.solve_quiz_and_get_code()
+    basket_page = BasketPage(browser, link)
+    basket_page.solve_quiz_and_get_code()
     page.should_be_message_about_add_basket()
     page.should_be_message_contain_name_product()
     page.should_be_message_about_price()
     page.should_be_message_contain_price()
 
-
+@pytest.mark.need_review
 def test_guest_can_go_to_login_page_from_product_page(browser):
     link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
     page = ProductPage(browser, link)
     page.open()
     page.go_to_login_page()
 
-
+@pytest.mark.need_review
 def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
     page = ProductPage(browser, link)
     page.open()
     page.go_to_basket_page()
-    page.should_be_basket_url()
-    page.should_not_be_product_to_basket()
-    page.should_be_message_basket_is_empty()
+    basket_page = BasketPage(browser, link)
+    basket_page.should_be_basket_url()
+    basket_page.should_not_be_product_to_basket()
+    basket_page.should_be_message_basket_is_empty()
 
 
 @pytest.mark.skip
@@ -88,6 +92,7 @@ class TestUserAddToBasketFromProductPage():
         login_page.register_new_user(email, password)
         login_page.should_be_authorized_user()
 
+    @pytest.mark.need_review
     def test_user_can_add_product_to_basket(self, browser):
         link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
         page = ProductPage(browser, link)
@@ -105,4 +110,3 @@ class TestUserAddToBasketFromProductPage():
         page = ProductPage(browser, link)
         page.open()
         page.should_not_be_success_message()
-

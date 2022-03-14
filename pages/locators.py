@@ -5,9 +5,13 @@ class BasePageLocators():
     LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
     LOGIN_LINK_INVALID = (By.CSS_SELECTOR, "#login_link_inc")
     VIEW_BASKET = (By.XPATH, '//a[@class="btn btn-default"]')
+    USER_ICON = (By.CSS_SELECTOR, ".icon-user")
+
+
+class BasketPageLocators():
     PRODUCT_TO_BASKET = (By.CSS_SELECTOR, ".thumbnail")
     BASKET_EMPTY = (By.XPATH, '//div[@id="content_inner"]//p')
-    USER_ICON = (By.CSS_SELECTOR, ".icon-user")
+
 
 class LoginPageLocators():
     LOGIN_FORM = (By.CSS_SELECTOR, "#login_form")
@@ -21,6 +25,7 @@ class LoginPageLocators():
     LOG_IN_PASSWORD = (By.CSS_SELECTOR, "#id_login-password")
     LOG_IN_BUTTON = (By.XPATH, '//button[@name="login_submit"]')
 
+
 class ProductPageLocators():
     BASKET_FORM = (By.CSS_SELECTOR, "#add_to_basket_form")
     ADD_BASKET = (By.CSS_SELECTOR, ".btn-add-to-basket")
@@ -29,4 +34,3 @@ class ProductPageLocators():
     MESSAGE_PRICE = (By.XPATH, '//div[@id="messages"]//p')
     PRICE_PRODUCT = (By.CSS_SELECTOR, 'p.price_color')
     PRICE_TO_BASKET = (By.XPATH, '//div[@class="basket-mini pull-right hidden-xs"]')
-
